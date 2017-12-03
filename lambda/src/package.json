@@ -1,7 +1,7 @@
 {
-  "name": "StatesQuiz",
+  "name": "Learn Slang",
   "version": "1.0.0",
-  "description": "A quiz about states and their capitals.",
+  "description": "An app to learn slang from the ultimate sauce urban dictionary",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
