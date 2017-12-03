@@ -3,7 +3,18 @@
 //Data for this list came from: https://en.wikipedia.org/wiki/List_of_best-selling_books
 //=========================================================================================================================================
 
+const request = require('request');
 
+function findGif(query) {
+
+
+
+  const options = {
+
+  };
+
+  request.get();
+}
 
 var data = [
                 {BookTitle: "Don Quixote",                              Author: "Miguel de Cervantes",      OriginalPublicationDate:1612},
