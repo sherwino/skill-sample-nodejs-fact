@@ -15,7 +15,7 @@
     {
       "name": "GetNewFactIntent",
       "samples": [
-        "go bleep yourself",
+        "tell me a helloworld",
 
       ],
       "slots": []

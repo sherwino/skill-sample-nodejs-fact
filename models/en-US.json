@@ -1,7 +1,7 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "space facts",
+      "invocationName": "earmuffs",
       "intents": [
         {
           "name": "AMAZON.CancelIntent",
@@ -19,6 +19,7 @@
           "name": "GetNewFactIntent",
           "samples": [
             "go bleep yourself"
+            
 
           ],
           "slots": []
