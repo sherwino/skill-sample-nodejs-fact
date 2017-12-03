@@ -2,9 +2,10 @@
 // https://api.urbandictionary.com/v0/define?term=poop
 
 let request = require('request');
+let baseUrl = "https://api.urbandictionary.com/v0/define?term=";
 let term = "cake";
 
-request(`https://api.urbandictionary.com/v0/define?term=${term}`, function (error, response, body) {
+request(`baseUrl ${term}`, function (error, response, body) {
   console.log('error:', error); // Print the error if one occurred
   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
   console.log('body:', body); // Print the HTML for the Google homepage.

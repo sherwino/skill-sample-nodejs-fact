@@ -1,5 +1,5 @@
 .DS_Store
-/lambda/custom/node_modules
+/lambda/src/node_modules
 
 node_nodules
 

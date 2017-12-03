@@ -5,16 +5,25 @@
 
 const request = require('request');
 
+const baseUrl = "https://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC";
+
 function findGif(query) {
 
-
-
   const options = {
-
+    url: `${baseUrl}&q=${query}`,
+    dataType: 'json'
   };
 
-  request.get();
+  request.get(options, (err, response, body) => {
+    if (err) {
+      console.log('There was an error: ' +  err);
+      return;
+    }
+    return body;
+  });
 }
+
+findGif('thot');
 
 var data = [
                 {BookTitle: "Don Quixote",                              Author: "Miguel de Cervantes",      OriginalPublicationDate:1612},
