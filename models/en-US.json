@@ -85,11 +85,12 @@
             "for a quiz",
             "a quiz"
           ],
-          "slots": [{
+          "slots": [
+            {
  -              "name": "StateName",
  -              "type": "AMAZON.US_STATE",
  -              "samples": []
- -            },
+ -         },
  -            {
  -              "name": "Capital",
  -              "type": "AMAZON.US_CITY",
@@ -110,7 +111,7 @@
  -              "type": "AMAZON.NUMBER",
  -              "samples": []
  -            }]
-        ,
+},
       "types": [
         {
           "name": "US_STATE_ABBR",
