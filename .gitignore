@@ -1,4 +1,2 @@
 .DS_Store
-/lambda/custom/node_modules
-
-node_nodules
+/lambda/src/node_modules
