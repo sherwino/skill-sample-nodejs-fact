@@ -1,5 +1,8 @@
 'use strict';
 const Alexa = require('alexa-sdk');
+let request = require('request');
+let baseUrl = "https://api.urbandictionary.com/v0/define?";
+var responseObject;
 
 //=========================================================================================================================================
 //TODO: The items below this comment need your attention
@@ -37,7 +40,7 @@ function getAnswer(property, item)
             return "The " + formatCasing(property) + " of " + item.word + " is <say-as interpret-as='spell-out'>" + item[property] + "</say-as>. "
         break;
         default:
-            return "The " + formatCasing(property) + " of " + item.StateName + " is " + item[property] + ". "
+            return "The " + formatCasing(property) + " of " + item.word + " is " + item[property] + ". "
         break;
     }
 }
@@ -141,6 +144,21 @@ const startHandlers = Alexa.CreateStateHandler(states.START,{
     },
     "AnswerIntent": function() {
         let item = getItem(this.event.request.intent.slots);
+        let urbanResponse;
+        let options = {
+          url: `${baseUrl}term=${item}`,
+          dataType: 'json'
+          };
+        request(options, function (error, response, body) {
+          urbanResponse = JSON.parse(body).list[0];
+          let sanitizedExmaple = urbanResponse.example.replace(/\r?\n|\r/g, '');
+          responseObject = {
+            word: urbanResponse.word,
+            define: urbanResponse.definition,
+            example: sanitizedExmaple
+          };
+          data.push(responseObject);  
+
 
         if (item && item[Object.getOwnPropertyNames(data[0])[0]] != undefined)
         {
