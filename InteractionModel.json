@@ -45,30 +45,9 @@
             "{Abbreviation} information"
           ],
           "slots": [
-            {
-              "name": "StateName",
-              "type": "AMAZON.US_STATE",
-              "samples": []
-            },
-            {
-              "name": "Capital",
-              "type": "AMAZON.US_CITY",
-              "samples": []
-            },
-            {
-              "name": "StatehoodYear",
-              "type": "AMAZON.FOUR_DIGIT_NUMBER",
-              "samples": []
-            },
-            {
-              "name": "Abbreviation",
-              "type": "US_STATE_ABBR",
-              "samples": []
-            },
-            {
-              "name": "StatehoodOrder",
-              "type": "AMAZON.NUMBER",
-              "samples": []
+             {
+             "name": "CHITCHAT",
+             "type": "AMAZON.LITERAL"
             }
           ]
         },
