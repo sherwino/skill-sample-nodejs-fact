@@ -3,6 +3,7 @@
 //Data for this list came from: https://en.wikipedia.org/wiki/List_of_best-selling_books
 //=========================================================================================================================================
 
+
 // require request package
 const request = require('request');
 
@@ -30,9 +31,13 @@ function findGif(query) {
     // parsed images
     const images = JSON.parse(imageObj).data;
 
-
+    // remove unnecessary properties
+    const image = {
+      url: images[0].images.original_still.url,
+      rating: images[0].rating
+    };
 
     // return first result
-    return images[0];
+    return image;
   });
 }
