@@ -30,11 +30,12 @@ function findGif(query) {
     // parsed images
     const images = JSON.parse(imageObj).data;
 
-    return images;
+
+
+    // return first result
+    return images[0];
   });
 }
-
-findGif('thot');
 
 var data = [
                 {BookTitle: "Don Quixote",                              Author: "Miguel de Cervantes",      OriginalPublicationDate:1612},
