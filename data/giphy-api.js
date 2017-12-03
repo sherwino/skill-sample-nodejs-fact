@@ -5,6 +5,17 @@
 
 const request = require('request');
 
+function findGif(query) {
+
+
+
+  const options = {
+
+  };
+
+  request.get();
+}
+
 var data = [
                 {BookTitle: "Don Quixote",                              Author: "Miguel de Cervantes",      OriginalPublicationDate:1612},
                 {BookTitle: "A Tale of Two Cities",                     Author: "Charles Dickens",          OriginalPublicationDate:1859},
