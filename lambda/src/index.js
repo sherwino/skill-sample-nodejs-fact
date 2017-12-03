@@ -56,19 +56,19 @@ const speechConsWrong = ["Argh", "Aw man", "Blarg", "Blast", "Boo", "Bummer", "D
 "Mamma mia", "Oh boy", "Oh dear", "Oof", "Ouch", "Ruh roh", "Shucks", "Uh oh", "Wah wah", "Whoops a daisy", "Yikes"];
 
 //This is the welcome message for when a user starts the skill without a specific intent.
-const WELCOME_MESSAGE = "Welcome to the United States Quiz Game!  You can ask me about any of the fifty states and their capitals, or you can ask me to start a quiz.  What would you like to do?";
+const WELCOME_MESSAGE = "Welcome to dank urban slang app:";
 
 //This is the message a user will hear when they start a quiz.
-const START_QUIZ_MESSAGE = "OK.  I will ask you 10 questions about the United States.";
+const START_QUIZ_MESSAGE = "OK.  I will ask you 10 questions about the dank memes.";
 
 //This is the message a user will hear when they try to cancel or stop the skill, or when they finish a quiz.
-const EXIT_SKILL_MESSAGE = "Thank you for playing the United States Quiz Game!  Let's play again soon!";
+const EXIT_SKILL_MESSAGE = "Thank you for playing the dank memes game!  Let's play again soon!";
 
 //This is the message a user will hear after they ask (and hear) about a specific data element.
-const REPROMPT_SPEECH = "Which other state or capital would you like to know about?";
+const REPROMPT_SPEECH = "Which other meme or slang would you like to know about?";
 
 //This is the message a user will hear when they ask Alexa for help in your skill.
-const HELP_MESSAGE = "I know lots of things about the United States.  You can ask me about a state or a capital, and I'll tell you what I know.  You can also test your knowledge by asking me to start a quiz.  What would you like to do?";
+const HELP_MESSAGE = "I know lots of things about the memes and slang.  You can ask me about a word or a phrase, and I'll tell you what I know.  You can also test your knowledge by asking me to start a quiz.  What would you like to do?";
 
 
 //This is the response a user will receive when they ask about something we weren't expecting.  For example, say "pizza" to your
