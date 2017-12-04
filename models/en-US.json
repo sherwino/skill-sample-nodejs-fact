@@ -49,6 +49,10 @@
           ],
           "slots": [
             {
+               "name": "CHITCHAT",
+               "type": "AMAZON.LITERAL"
+             },
+            {
               "name": "StateName",
               "type": "AMAZON.US_STATE",
               "samples": []

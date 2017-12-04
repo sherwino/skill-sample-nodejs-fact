@@ -1,6 +1,9 @@
 'use strict';
 const Alexa = require('alexa-sdk');
-const request = require('request');
+let request = require('request');
+let baseUrl = "https://api.urbandictionary.com/v0/define?term=";
+var responseObject;
+var urbanResponse;
 
 //=========================================================================================================================================
 //TODO: The items below this comment need your attention
@@ -14,7 +17,7 @@ const APP_ID = undefined;
 //like "Ohio."  The skill will speak the sentence from this function, pulling the data values from the appropriate record in your data.
 function getSpeechDescription(item)
 {
-    let sentence = item.StateName + " is the " + item.StatehoodOrder + "th state, admitted to the Union in " + item.StatehoodYear + ".  The capital of " + item.StateName + " is " + item.Capital + ", and the abbreviation for " + item.StateName + " is <break strength='strong'/><say-as interpret-as='spell-out'>" + item.Abbreviation + "</say-as>.  I've added " + item.StateName + " to your Alexa app.  Which other state or capital would you like to know about?";
+    let sentence =  " Defintion of the word" +item.define;
     return sentence;
 }
 
@@ -23,8 +26,7 @@ function getSpeechDescription(item)
 //structure for each property of your data.
 function getQuestion(counter, property, item)
 {
-    return "Here is your " + counter + "th question.  What is the " + formatCasing(property) + " of "  + item.StateName + "?";
-
+    return "Here is your " + counter + "th question.  What is the " + formatCasing(property) + " of "  + item.word + "?";
 
 }
 
@@ -36,39 +38,36 @@ function getAnswer(property, item)
     switch(property)
     {
         case "Abbreviation":
-            return "The " + formatCasing(property) + " of " + item.StateName + " is <say-as interpret-as='spell-out'>" + item[property] + "</say-as>. "
+            return "The " + formatCasing(property) + " of " + item.word + " is <say-as interpret-as='spell-out'>" + item[property] + "</say-as>. "
         break;
         default:
-            return "The " + formatCasing(property) + " of " + item.StateName + " is " + item[property] + ". "
+            return "The " + formatCasing(property) + " of " + item.word + " is " + item[property] + ". "
         break;
     }
 }
 
 //This is a list of positive speechcons that this skill will use when a user gets a correct answer.  For a full list of supported
 //speechcons, go here: https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speechcon-reference
-const speechConsCorrect = ["Booya", "All righty", "Bam", "Bazinga", "Bingo", "Boom", "Bravo", "Cha Ching", "Cheers", "Dynomite",
-"Hip hip hooray", "Hurrah", "Hurray", "Huzzah", "Oh dear.  Just kidding.  Hurray", "Kaboom", "Kaching", "Oh snap", "Phew",
-"Righto", "Way to go", "Well done", "Whee", "Woo hoo", "Yay", "Wowza", "Yowsa"];
+const speechConsCorrect = ["it's lit","team littyyyy","bazinga","dope","dank as fuck"];
 
 //This is a list of negative speechcons that this skill will use when a user gets an incorrect answer.  For a full list of supported
 //speechcons, go here: https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speechcon-reference
-const speechConsWrong = ["Argh", "Aw man", "Blarg", "Blast", "Boo", "Bummer", "Darn", "D'oh", "Dun dun dun", "Eek", "Honk", "Le sigh",
-"Mamma mia", "Oh boy", "Oh dear", "Oof", "Ouch", "Ruh roh", "Shucks", "Uh oh", "Wah wah", "Whoops a daisy", "Yikes"];
+const speechConsWrong = ["trash","you can do better than that bull shit!!!!"];
 
 //This is the welcome message for when a user starts the skill without a specific intent.
-const WELCOME_MESSAGE = "Welcome to dank urban slang app:";
+const WELCOME_MESSAGE = "Welcome to the dank meme and slang game. Today we will learn how millenials communicate";
 
 //This is the message a user will hear when they start a quiz.
-const START_QUIZ_MESSAGE = "OK.  I will ask you 10 questions about the dank memes.";
+const START_QUIZ_MESSAGE = "OK.  I will ask you 10 questions about slang.";
 
 //This is the message a user will hear when they try to cancel or stop the skill, or when they finish a quiz.
-const EXIT_SKILL_MESSAGE = "Thank you for playing the dank memes game!  Let's play again soon!";
+const EXIT_SKILL_MESSAGE = "Thank you for playing the dank meme game!  Let's play again soon!";
 
 //This is the message a user will hear after they ask (and hear) about a specific data element.
-const REPROMPT_SPEECH = "Which other meme or slang would you like to know about?";
+const REPROMPT_SPEECH = "Which other slang or ememe would you like to learn about";
 
 //This is the message a user will hear when they ask Alexa for help in your skill.
-const HELP_MESSAGE = "I know lots of things about the memes and slang.  You can ask me about a word or a phrase, and I'll tell you what I know.  You can also test your knowledge by asking me to start a quiz.  What would you like to do?";
+const HELP_MESSAGE = "I know lots of things about memes and slang.  You can ask me about any wordl, and I'll tell you what I know.  You can also test your knowledge by asking me to start a quiz.  What would you like to do?";
 
 
 //This is the response a user will receive when they ask about something we weren't expecting.  For example, say "pizza" to your
@@ -89,7 +88,7 @@ function getFinalScore(score, counter) { return "Your final score is " + score +
 const USE_CARDS_FLAG = true;
 
 //This is what your card title will be.  For our example, we use the name of the state the user requested.
-function getCardTitle(item) { return item.StateName;}
+function getCardTitle(item) { return item.word;}
 
 //This is the small version of the card image.  We use our data as the naming convention for our images so that we can dynamically
 //generate the URL to the image.  The small image should be 720x400 in dimension.
@@ -101,9 +100,8 @@ function getLargeImage(item) { return "https://m.media-amazon.com/images/G/01/mo
 //=========================================================================================================================================
 //TODO: Replace this data with your own.
 //=========================================================================================================================================
-const data = [
-                {StateName: "Alabama",        Abbreviation: "AL", Capital: "Montgomery",     StatehoodYear: 1819, StatehoodOrder: 22 },
-                {StateName: "Alaska",         Abbreviation: "AK", Capital: "Juneau",         StatehoodYear: 1959, StatehoodOrder: 49 }
+var data = [
+                { word: "anyword", define: 'This is a lie! Everything you have been told about the cake is a lie, do not listen.'}
             ];
 
 //=========================================================================================================================================
@@ -147,28 +145,33 @@ const startHandlers = Alexa.CreateStateHandler(states.START,{
     },
     "AnswerIntent": function() {
         let item = getItem(this.event.request.intent.slots);
+        console.log("this is the"+item);
+        let requestVar=JSON.stringify(item);
+        console.log("this is the requestVar"+requestVar);
 
-        if (item && item[Object.getOwnPropertyNames(data[0])[0]] != undefined)
-        {
-          console.log("\nMEMO's TEST\n");
-            if (USE_CARDS_FLAG)
-            {
-                let imageObj = {smallImageUrl: getSmallImage(item), largeImageUrl: getLargeImage(item)};
+        let options = {
+          url: baseUrl+item,
+          dataType: 'json'
+          };
+        console.log("the options"+JSON.stringify(options));
+        request(options,  (error, responz, body) => {
+          urbanResponse = JSON.parse(body).list[0];
+          console.log("this is the response"+ JSON.stringify(responz)+ "and this is the body" +body);
+          // let sanitizedExmaple = urbanResponse.example.replace(/\r?\n|\r/g, '');
+          responseObject = {
+            word: urbanResponse.word,
+            define: urbanResponse.definition,
+          };
+          console.log("the responseObject"+responseObject);
 
-                this.response.speak(getSpeechDescription(item)).listen(REPROMPT_SPEECH);
-                this.response.cardRenderer(getCardTitle(item), getTextDescription(item), imageObj);            }
-            else
-            {
-                this.response.speak(getSpeechDescription(item)).listen(REPROMPT_SPEECH);
-            }
-        }
-        else
-        {
-            this.response.speak(getBadAnswer(item)).listen(getBadAnswer(item));
+          data.push(responseObject);
+          console.log(this);
+          // if(item){
+          this.response.speak(responseObject.define);
+          this.emit(":responseReady");
+        });
 
-        }
 
-        this.emit(":responseReady");
     },
     "QuizIntent": function() {
         this.handler.state = states.QUIZ;

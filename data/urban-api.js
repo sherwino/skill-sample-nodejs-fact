@@ -2,13 +2,27 @@
 // https://api.urbandictionary.com/v0/define?term=poop
 
 let request = require('request');
-let term = "cake";
+let baseUrl = "https://api.urbandictionary.com/v0/define?";
+let userInput = "cake";
+let urbanResponse;
+let options = {
+  url: `${baseUrl}term=${userInput}`,
+  dataType: 'json'
+  };
 
-request(`https://api.urbandictionary.com/v0/define?term=${term}`, function (error, response, body) {
+
+request(options, function (error, response, body) {
   console.log('error:', error); // Print the error if one occurred
   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-  console.log('body:', body); // Print the HTML for the Google homepage.
-});
+  urbanResponse = JSON.parse(body).list[0];
+  let sanitizedExmaple = urbanResponse.example.replace(/\r?\n|\r/g, '');
+  let responseObject = {
+    word: urbanResponse.word,
+    define: urbanResponse.definition,
+    example: sanitizedExmaple
+  };
+
+    console.log(responseObject);
 
 // var data = [
 //         { Name:"Queen Anne",                  YearOfCoronation:1707, Predecessor:"none",                 Successor:"King George the First",  YearOfDeath:1714},
